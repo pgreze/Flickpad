@@ -25,6 +25,13 @@ import timber.log.Timber;
 @Singleton
 public class FlickrInteractor {
 
+    public static final String ENTITY_ICON_FORMAT =
+            "http://farm{farm}.staticflickr.com/{server}/buddyicons/{id}.jpg";
+    public static final String PHOTO_FORMAT =
+            "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}.jpg";
+    public static final String DEFAULT_MEDIUM_SIZE = "M";
+    public static final String DEFAULT_LARGE_SIZE = "H";
+
     private final FlickrService service;
 
     @Inject
@@ -119,8 +126,11 @@ public class FlickrInteractor {
         return Observable.fromIterable(page.group())
                 .map(group -> Group.create(
                         group.nsid(), group.name(),
-                        group.iconserver(), group.iconfarm(),
-                        group.members(), group.topicCount()))
+                        ENTITY_ICON_FORMAT
+                                .replace("{farm}", String.valueOf(group.iconfarm()))
+                                .replace("{server}", group.iconserver())
+                                .replace("{id}", group.nsid()),
+                        Integer.valueOf(group.members()), Integer.valueOf(group.topicCount())))
                 .toList()
                 .map(list -> Page.create(
                         page.page(), page.pages(),
@@ -131,9 +141,15 @@ public class FlickrInteractor {
     private Observable<Page<Photo>> convertToPhotos(FlickrPhotos page) {
         return Observable.fromIterable(page.photo())
                 .map(photo -> Photo.create(
-                        photo.id(), photo.title(), new Date(), // TODO
-                        photo.owner(), photo.ownername(),
-                        photo.secret(), photo.farm(), photo.server()))
+                        photo.id(), photo.title(), new Date(), photo.owner(), photo.ownername(),
+                        PHOTO_FORMAT.replace("{secret}", photo.secret())
+                                .replace("{farm}", String.valueOf(photo.farm()))
+                                .replace("{server}", photo.server())
+                                .replace("{size}", DEFAULT_MEDIUM_SIZE),
+                        PHOTO_FORMAT.replace("{secret}", photo.secret())
+                                .replace("{farm}", String.valueOf(photo.farm()))
+                                .replace("{server}", photo.server())
+                                .replace("{size}", DEFAULT_LARGE_SIZE)))
                 .toList()
                 .map(list -> Page.create(
                         page.page(), page.pages(),
@@ -141,13 +157,15 @@ public class FlickrInteractor {
                 .toObservable();
     }
 
-    private Observable<User> convertToUser(FlickrFullUser flickrFullUser) {
+    private Observable<User> convertToUser(FlickrFullUser user) {
         return Observable.just(User.create(
-                flickrFullUser.nsid(),
-                getName(flickrFullUser.username()),
-                getName(flickrFullUser.realname()),
-                flickrFullUser.iconserver(),
-                flickrFullUser.iconfarm()));
+                user.nsid(),
+                getName(user.username()),
+                getName(user.realname()),
+                ENTITY_ICON_FORMAT
+                        .replace("{farm}", String.valueOf(user.iconfarm()))
+                        .replace("{server}", user.iconserver())
+                        .replace("{id}", user.nsid())));
     }
 
     private String getName(Map<String, Map<String, String>> name) {

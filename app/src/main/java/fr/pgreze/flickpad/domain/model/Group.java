@@ -9,17 +9,14 @@ public abstract class Group {
     public abstract String id();
     /** Group name */
     public abstract String name();
-    /** Icon server */
-    public abstract String iconServer();
-    /** Icon farm */
-    public abstract int iconFarm();
+    /** Group thumbnail url */
+    public abstract String thumbnail();
     /** Member count */
-    public abstract String memberCount();
+    public abstract int memberCount();
     /** Topic count */
-    public abstract String topicCount();
+    public abstract int topicCount();
 
-    public static Group create(String id, String name, String iconServer, int iconFarm,
-                               String members, String topicCount) {
-        return new AutoValue_Group(id, name, iconServer, iconFarm, members, topicCount);
+    public static Group create(String id, String name, String thumbnail, int memberCount, int topicCount) {
+        return new AutoValue_Group(id, name, thumbnail, memberCount, topicCount);
     }
 }
