@@ -14,12 +14,8 @@ public abstract class FlickrPhoto {
 
     public abstract String id();
     public abstract String title();
-
     /** Owner user id */
     public abstract String owner();
-    /** Owner name */
-    public abstract String ownername();
-
     /** Used for url resolution */
     public abstract String secret();
     /** Used for url resolution */
@@ -28,12 +24,12 @@ public abstract class FlickrPhoto {
     public abstract String server();
 
     public abstract String dateadded();
-    public abstract boolean ispublic();
+    public abstract int ispublic();
 
-    public static FlickrPhoto create(String id, String title, String owner, String ownername,
+    public static FlickrPhoto create(String id, String title, String owner,
                                      String secret, int farm, String server,
-                                     String dateadded, boolean ispublic) {
-        return new AutoValue_FlickrPhoto(id, title, owner, ownername, secret, farm, server, dateadded, ispublic);
+                                     String dateadded, int ispublic) {
+        return new AutoValue_FlickrPhoto(id, title, owner, secret, farm, server, dateadded, ispublic);
     }
 
 

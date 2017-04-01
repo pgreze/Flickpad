@@ -17,15 +17,13 @@ public abstract class Photo {
     public abstract Date dateAdded();
     /** Owner id */
     public abstract String ownerId();
-    /** Owner name */
-    public abstract String ownerName();
     /** Medium photo url (should be used in list) */
     public abstract String mediumUrl();
     /** Large photo url (should be used in fullscreen) */
     @Nullable
     public abstract String largeUrl();
 
-    public static Photo create(String id, String title, Date dateAdded, String ownerId, String ownerName, String mediumUrl, String largeUrl) {
-        return new AutoValue_Photo(id, title, dateAdded, ownerId, ownerName, mediumUrl, largeUrl);
+    public static Photo create(String id, String title, Date dateAdded, String ownerId, String mediumUrl, String largeUrl) {
+        return new AutoValue_Photo(id, title, dateAdded, ownerId, mediumUrl, largeUrl);
     }
 }

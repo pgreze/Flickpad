@@ -27,10 +27,14 @@ public class FlickrInteractor {
 
     public static final String ENTITY_ICON_FORMAT =
             "http://farm{farm}.staticflickr.com/{server}/buddyicons/{id}.jpg";
+    /**
+     * See https://www.flickr.com/services/api/misc.urls.html
+     * https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}_[mstzb].jpg
+     */
     public static final String PHOTO_FORMAT =
-            "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}.jpg";
-    public static final String DEFAULT_MEDIUM_SIZE = "M";
-    public static final String DEFAULT_LARGE_SIZE = "H";
+            "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}_{size}.jpg";
+    public static final String DEFAULT_MEDIUM_SIZE = "z";
+    public static final String DEFAULT_LARGE_SIZE = "h";
 
     private final FlickrService service;
 
@@ -141,12 +145,14 @@ public class FlickrInteractor {
     private Observable<Page<Photo>> convertToPhotos(FlickrPhotos page) {
         return Observable.fromIterable(page.photo())
                 .map(photo -> Photo.create(
-                        photo.id(), photo.title(), new Date(), photo.owner(), photo.ownername(),
-                        PHOTO_FORMAT.replace("{secret}", photo.secret())
+                        photo.id(), photo.title(), new Date(), photo.owner(),
+                        PHOTO_FORMAT.replace("{id}", photo.id())
+                                .replace("{secret}", photo.secret())
                                 .replace("{farm}", String.valueOf(photo.farm()))
                                 .replace("{server}", photo.server())
                                 .replace("{size}", DEFAULT_MEDIUM_SIZE),
-                        PHOTO_FORMAT.replace("{secret}", photo.secret())
+                        PHOTO_FORMAT.replace("{id}", photo.id())
+                                .replace("{secret}", photo.secret())
                                 .replace("{farm}", String.valueOf(photo.farm()))
                                 .replace("{server}", photo.server())
                                 .replace("{size}", DEFAULT_LARGE_SIZE)))
