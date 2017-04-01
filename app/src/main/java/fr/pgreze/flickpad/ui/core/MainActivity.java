@@ -19,7 +19,6 @@ import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import fr.pgreze.flickpad.ui.core.di.ActivityModule;
 import fr.pgreze.flickpad.ui.core.di.DaggerActivityComponent;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
-import fr.pgreze.flickpad.ui.home.PhotosFragment;
 
 public class MainActivity extends AppCompatActivity implements HasComponent<ActivityComponent> {
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
         if (savedInstanceState == null) {
             // Display fragment
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_container, PhotosFragment.newTagInstance("cat"), HomeFragment.TAG)
+                    .add(R.id.main_container, HomeFragment.newInstance(null), HomeFragment.TAG)
                     .commit();
         }
     }
