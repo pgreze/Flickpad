@@ -1,5 +1,6 @@
 package fr.pgreze.flickpad.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,12 +10,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +31,8 @@ import fr.pgreze.flickpad.ui.core.BaseFragment;
 import fr.pgreze.flickpad.ui.core.BasePresenter;
 import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
+import io.reactivex.subjects.PublishSubject;
+import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment {
     public static final String TAG = "fragment.home";
@@ -45,6 +54,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.tabs_layout) TabLayout tabLayout;
 
     @Inject MainActivity activity;
+    @Inject @Named("search") PublishSubject<String> searchSubject;
 
     @Nullable
     private String search;
@@ -91,11 +101,84 @@ public class HomeFragment extends BaseFragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+        setHasOptionsMenu(true);
 
         // Configure pager adapter
         pagerAdapter = new HomePagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search, menu);
+
+        // Listen search request
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                boolean consume = submitSearch(query);
+                if (consume) searchView.onActionViewCollapsed();
+                return consume;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        // Set search view hint
+        SearchView.SearchAutoComplete searchAutoComplete =
+                (SearchView.SearchAutoComplete) searchView.findViewById(
+                        android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoComplete.setHint(R.string.search_hint);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                activity.onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean submitSearch(String query) {
+        if (TextUtils.isEmpty(query) || query.equals(search)) {
+            // Empty or already in this search
+            return false;
+        }
+
+        // Clean query
+        query = query.trim();
+
+        if (TextUtils.isEmpty(search)) {
+            // Search search screen
+            activity.search(query);
+        } else {
+            // Update title and args
+            getArguments().putString(SEARCH_KEY, query);
+            toolbar.setTitle(query);
+            // And display this new search
+            searchSubject.onNext(query);
+        }
+
+        // Close keyboard
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            try {
+                InputMethodManager imm = (InputMethodManager)
+                        activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            } catch (Exception e) {
+                Timber.e(e, "Failed to close keyboard after search");
+            }
+        }
+
+        return true;
     }
 
     private class HomePagerAdapter extends FragmentPagerAdapter {

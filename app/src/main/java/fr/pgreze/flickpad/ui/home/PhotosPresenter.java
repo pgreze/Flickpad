@@ -48,4 +48,13 @@ public class PhotosPresenter extends PagePresenter<Photo, PagePresenter.PageView
         return "PhotosPresenter{" + (TextUtils.isEmpty(searchText) ? tag : searchText) + "}";
     }
 
+    public boolean onNewQuery(String query) {
+        if (TextUtils.isEmpty(searchText)) return false;
+
+        // Update field
+        searchText = query;
+        // And query again data (without cache)
+        onRefresh();
+        return true;
+    }
 }

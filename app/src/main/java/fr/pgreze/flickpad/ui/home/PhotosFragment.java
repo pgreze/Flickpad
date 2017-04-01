@@ -70,6 +70,15 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     }
 
     @Override
+    protected void onNewQuery(String query) {
+        // Update presenter
+        if (presenter.onNewQuery(query)) {
+            // And update args
+            getArguments().putString(SEARCH_KEY, query);
+        }
+    }
+
+    @Override
     public void load(Page<Photo> page) {
         super.load(page);
         adapter.addItems(page);

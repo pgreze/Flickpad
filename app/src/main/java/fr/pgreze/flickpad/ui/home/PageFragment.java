@@ -17,6 +17,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,8 @@ import fr.pgreze.flickpad.domain.model.User;
 import fr.pgreze.flickpad.ui.core.BaseFragment;
 import fr.pgreze.flickpad.ui.core.BasePresenter;
 import fr.pgreze.flickpad.ui.core.MainActivity;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 
 public abstract class PageFragment<T, Presenter extends BasePresenter>
         extends BaseFragment<Presenter>
@@ -51,6 +54,9 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
 
     @Inject MainActivity activity;
     @Inject Picasso picasso;
+    @Inject @Named("search") PublishSubject<String> searchSubject;
+
+    private Disposable disposable;
 
     @Nullable
     @Override
@@ -73,9 +79,23 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
         listView.setAdapter(createAdapter());
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        disposable = searchSubject.subscribe(this::onNewQuery);
+    }
+
+    @Override
+    public void onStop() {
+        disposable.dispose();
+        super.onStop();
+    }
+
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 
     protected abstract RecyclerView.Adapter createAdapter();
+
+    protected abstract void onNewQuery(String query);
 
     // Public API
 
