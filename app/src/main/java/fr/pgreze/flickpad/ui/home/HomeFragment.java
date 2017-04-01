@@ -14,7 +14,7 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     protected BasePresenter onCreate(@NonNull ActivityComponent component,
-                                     @Nullable Bundle arguments,
+                                     @Nullable Bundle args,
                                      @Nullable Bundle savedInstanceState) {
         return null;
     }

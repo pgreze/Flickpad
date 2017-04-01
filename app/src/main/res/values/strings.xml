@@ -2,6 +2,13 @@
     <!-- Base -->
     <string name="app_name">Flickpad</string>
 
+    <!-- Photos / Groups -->
+    <string name="list_empty">Nothing found :(</string>
+    <string name="list_unknown_error">Something bad happened.\n\n
+    Drag from top to retry.</string>
+    <string name="photos_network_error">Can\'t load photos.\n\n
+    Drag from top to retry.</string>
+
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
     <string name="unknown_error">Something bad happened, please retry.</string>

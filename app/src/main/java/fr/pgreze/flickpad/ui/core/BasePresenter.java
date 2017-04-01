@@ -2,6 +2,8 @@ package fr.pgreze.flickpad.ui.core;
 
 import android.support.annotation.Nullable;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * Base presenter class.
  */
@@ -11,8 +13,11 @@ public class BasePresenter<View> {
     protected View view;
     private boolean paused = true;
 
+    protected CompositeDisposable disposables = null;
+
     public void onStart(View view) {
         this.view = view;
+        disposables = new CompositeDisposable();
     }
 
     public void onResume() {
@@ -24,6 +29,7 @@ public class BasePresenter<View> {
     }
 
     public void onStop() {
+        disposables.dispose();
         view = null;
     }
 
