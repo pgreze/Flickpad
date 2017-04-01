@@ -41,8 +41,8 @@ public class StethoDebugTree extends Timber.DebugTree {
 
     @Override
     protected void log(int priority, String tag, String message, Throwable t) {
-        // This logs to logcat.
-        super.log(priority, tag, message, t);
+        // Don't log to logcat.
+        //super.log(priority, tag, message, t);
 
         // This logs to Chrome.
         // The following code is copied from
