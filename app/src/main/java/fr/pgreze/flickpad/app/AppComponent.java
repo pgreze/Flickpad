@@ -7,6 +7,8 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import fr.pgreze.flickpad.domain.flickr.FlickrInteractor;
+import fr.pgreze.flickpad.domain.flickr.FlickrModule;
 import okhttp3.OkHttpClient;
 
 /**
@@ -16,6 +18,7 @@ import okhttp3.OkHttpClient;
 @Component(modules = {
         AppModule.class,
         BuildVariantModule.class,
+        FlickrModule.class,
 })
 public interface AppComponent {
     // Base
@@ -23,5 +26,5 @@ public interface AppComponent {
     Picasso picasso();
     OkHttpClient client();
     // Domain
-    // TODO
+    FlickrInteractor flickrInteractor();
 }

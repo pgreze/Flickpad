@@ -1,4 +1,8 @@
 <resources>
     <!-- Base -->
     <string name="app_name">Flickpad</string>
+
+    <!-- Errors -->
+    <string name="network_error">Please check your network and retry.</string>
+    <string name="unknown_error">Something bad happened, please retry.</string>
 </resources>
