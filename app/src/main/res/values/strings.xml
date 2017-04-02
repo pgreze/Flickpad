@@ -21,6 +21,11 @@
     <string name="groups_network_error">Can\'t load groups.\n\n
     Drag from top to retry.</string>
 
+    <!-- Photo -->
+    <string name="share_error">@string/unknown_error</string>
+    <string name="share_picker_title">Share with</string>
+    <string name="share_placeholder_text">Enjoy what I found with Flickpad :)</string>
+
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
     <string name="unknown_error">Something bad happened, please retry.</string>
