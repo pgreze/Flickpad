@@ -22,8 +22,6 @@ allprojects {
 ext {
     COMPILESDKVERSION = 25
     BUILDTOOLSVERSION = '25.0.2'
-    // TODO: use productFlavors to set minSdkVersion
-    // debug=21 to increase build speed and release=16 for real min API
     MINSDKVERSION = 21
     TARGETSDKVERSION = COMPILESDKVERSION
     SUPPORT_LIBRARY_VERSION = '25.3.0'
