@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import fr.pgreze.flickpad.R;
-import fr.pgreze.flickpad.app.FlickPadApp;
+import fr.pgreze.flickpad.app.FlickpadApp;
 import fr.pgreze.flickpad.common.di.HasComponent;
 import fr.pgreze.flickpad.domain.model.Group;
 import fr.pgreze.flickpad.domain.model.Photo;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
     public ActivityComponent component() {
         if (component == null) {
             component = DaggerActivityComponent.builder()
-                    .appComponent(FlickPadApp.getInstance().component())
+                    .appComponent(FlickpadApp.getInstance().component())
                     .activityModule(new ActivityModule(this))
                     .build();
         }

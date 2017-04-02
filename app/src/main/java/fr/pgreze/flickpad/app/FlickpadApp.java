@@ -4,11 +4,11 @@ import android.app.Application;
 
 import fr.pgreze.flickpad.common.di.HasComponent;
 
-public class FlickPadApp extends Application implements HasComponent<AppComponent> {
+public class FlickpadApp extends Application implements HasComponent<AppComponent> {
 
-    private static FlickPadApp instance;
+    private static FlickpadApp instance;
 
-    public static FlickPadApp getInstance() {
+    public static FlickpadApp getInstance() {
         return instance;
     }
 
@@ -17,8 +17,10 @@ public class FlickPadApp extends Application implements HasComponent<AppComponen
     @Override
     public void onCreate() {
         super.onCreate();
+        // Base config
         instance = this;
         BuildVariant.config(this);
+
         component = createComponent();
     }
 

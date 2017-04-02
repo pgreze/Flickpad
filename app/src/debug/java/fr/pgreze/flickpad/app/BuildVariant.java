@@ -9,7 +9,7 @@ import timber.log.Timber;
  */
 class BuildVariant {
 
-    static void config(FlickPadApp app) {
+    static void config(FlickpadApp app) {
         Stetho.initializeWithDefaults(app);
 
         // Logging config

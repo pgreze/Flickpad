@@ -17,9 +17,9 @@ import okhttp3.OkHttpClient;
 @Module
 public class AppModule {
 
-    private final FlickPadApp app;
+    private final FlickpadApp app;
 
-    public AppModule(FlickPadApp app) {
+    public AppModule(FlickpadApp app) {
         this.app = app;
     }
 
