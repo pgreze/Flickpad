@@ -5,7 +5,7 @@ package fr.pgreze.flickpad.app;
  */
 class BuildVariant {
 
-    static void config(FlickPadApp app) {
+    static void config(FlickpadApp app) {
         // Nothing to do
     }
 }
