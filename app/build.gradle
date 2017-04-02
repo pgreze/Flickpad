@@ -25,10 +25,16 @@ android {
     }
     signingConfigs {
         debug {
-            keyAlias 'Debug'
+            keyAlias 'debug'
             keyPassword 'password'
             storeFile file('../flickpad.jks')
             storePassword 'password'
+        }
+        release {
+            keyAlias 'release'
+            keyPassword "$RELEASE_SIGNING_PASSWORD"
+            storeFile file('../pgreze.jks')
+            storePassword "$RELEASE_SIGNING_PASSWORD"
         }
     }
     buildTypes {
@@ -39,7 +45,8 @@ android {
             minifyEnabled false
         }
         release {
-            // TODO for real release
+            // TODO: enable minify
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
