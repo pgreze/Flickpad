@@ -86,7 +86,7 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
 
     @Override
     public void show(int position, Photo photo) {
-        activity.show(photo, getViewHolderFor(position).itemView);
+        activity.show(photo, getListView().findViewHolderForAdapterPosition(position).itemView);
     }
 
     @Override

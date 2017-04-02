@@ -130,8 +130,8 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
         errorTxt.setVisibility(pageState == PAGE_ERROR_STATE ? View.VISIBLE : View.GONE);
     }
 
-    protected RecyclerView.ViewHolder getViewHolderFor(int position) {
-        return listView.findViewHolderForAdapterPosition(position);
+    public RecyclerView getListView() {
+        return listView;
     }
 
     // Implementation
