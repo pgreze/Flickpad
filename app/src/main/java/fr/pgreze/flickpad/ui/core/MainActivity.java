@@ -19,6 +19,7 @@ import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import fr.pgreze.flickpad.ui.core.di.ActivityModule;
 import fr.pgreze.flickpad.ui.core.di.DaggerActivityComponent;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
+import fr.pgreze.flickpad.ui.photo.PhotoFragment;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements HasComponent<ActivityComponent> {
@@ -66,7 +67,12 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
     }
 
     public void show(Photo photo) {
-        // TODO
+        // TODO: animation
+        Timber.i("Display photo screen for " + photo);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_container, PhotoFragment.newInstance(photo), PhotoFragment.TAG)
+                .addToBackStack(null)
+                .commit();
     }
 
     public void show(Group group) {

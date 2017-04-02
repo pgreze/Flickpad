@@ -1,5 +1,6 @@
 package fr.pgreze.flickpad.domain.model;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -7,7 +8,7 @@ import com.google.auto.value.AutoValue;
 import java.util.Date;
 
 @AutoValue
-public abstract class Photo {
+public abstract class Photo implements Parcelable {
 
     /** Photo id */
     public abstract String id();

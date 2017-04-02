@@ -6,6 +6,7 @@ import fr.pgreze.flickpad.common.di.UILifecycleScope;
 import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
 import fr.pgreze.flickpad.ui.home.PhotosFragment;
+import fr.pgreze.flickpad.ui.photo.PhotoFragment;
 
 @UILifecycleScope
 @Component(dependencies = AppComponent.class, modules = {
@@ -15,4 +16,5 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
     void inject(HomeFragment fragment);
     void inject(PhotosFragment fragment);
+    void inject(PhotoFragment fragment);
 }
