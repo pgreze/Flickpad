@@ -63,7 +63,7 @@ public class GroupsFragment extends PageFragment<Group, GroupsPresenter> {
     @Override
     protected void onNewQuery(String query) {
         getArguments().putString(SEARCH_ARG, query);
-        presenter.setArgs(query);
+        presenter.onNewQuery(query);
     }
 
     @Override
