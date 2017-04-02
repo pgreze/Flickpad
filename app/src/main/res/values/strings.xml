@@ -18,6 +18,8 @@
     Drag from top to retry.</string>
     <string name="photos_network_error">Can\'t load photos.\n\n
     Drag from top to retry.</string>
+    <string name="groups_network_error">Can\'t load groups.\n\n
+    Drag from top to retry.</string>
 
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
@@ -25,4 +27,6 @@
 
     <!-- Implementation -->
     <string name="photo_transition_name">photo</string>
+    <string name="group_icon_transition_name">icon</string>
+    <string name="group_name_transition_name">name</string>
 </resources>

@@ -43,11 +43,11 @@ public class FlickrInteractor {
         this.service = service;
     }
 
-    public Observable<Page<Group>> groupPhotos(String groupId) {
+    public Observable<Page<Photo>> groupPhotos(String groupId) {
         return service.groupPhotos(groupId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::responseHandler)
-                .flatMap(this::convertToGroups)
+                .flatMap(this::convertToPhotos)
                 .doOnError(e -> Timber.e(e, "Error while fetching groupPhotos"));
     }
 

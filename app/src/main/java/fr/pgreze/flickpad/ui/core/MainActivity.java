@@ -6,7 +6,9 @@ import android.transition.ChangeBounds;
 import android.transition.ChangeImageTransform;
 import android.transition.ChangeTransform;
 import android.transition.Fade;
+import android.transition.Slide;
 import android.transition.TransitionSet;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -24,6 +26,7 @@ import fr.pgreze.flickpad.domain.model.User;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import fr.pgreze.flickpad.ui.core.di.ActivityModule;
 import fr.pgreze.flickpad.ui.core.di.DaggerActivityComponent;
+import fr.pgreze.flickpad.ui.group.GroupFragment;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
 import fr.pgreze.flickpad.ui.photo.PhotoFragment;
 import timber.log.Timber;
@@ -91,8 +94,21 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
                 .commit();
     }
 
-    public void show(Group group) {
-        // TODO
+    public void show(Group group, View view) {
+        Timber.i("Display group screen for " + group);
+        GroupFragment fragment = GroupFragment.newInstance(group);
+        // Configure transition
+        fragment.setEnterTransition(new Slide(Gravity.RIGHT)
+                .setDuration(300));
+        fragment.setSharedElementEnterTransition(new ChangeBounds()
+                .setDuration(300));
+        // Show fragment
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, fragment, GroupFragment.TAG)
+                .addToBackStack(null)
+                .addSharedElement(view.findViewById(R.id.group_item_icon), getString(R.string.group_icon_transition_name))
+                .addSharedElement(view.findViewById(R.id.group_item_name), getString(R.string.group_name_transition_name))
+                .commit();
     }
 
     public void show(User user) {

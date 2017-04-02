@@ -4,10 +4,8 @@ import fr.pgreze.flickpad.BuildConfig;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullGroup;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullPhoto;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullUser;
-import fr.pgreze.flickpad.data.flickr.model.FlickrGroup;
 import fr.pgreze.flickpad.data.flickr.model.FlickrGroups;
 import fr.pgreze.flickpad.data.flickr.model.FlickrPhotos;
-import fr.pgreze.flickpad.data.flickr.model.FlickrPhoto;
 import fr.pgreze.flickpad.data.flickr.model.FlickrResponse;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -29,7 +27,7 @@ public interface FlickrService {
 
     /** See https://www.flickr.com/services/api/flickr.groups.pools.getPhotos.html */
     @GET(BASE_PATH + "flickr.groups.pools.getPhotos")
-    Observable<FlickrResponse<FlickrGroups>> groupPhotos(
+    Observable<FlickrResponse<FlickrPhotos>> groupPhotos(
             @Query("group_id") String groupId);
 
     /** See https://www.flickr.com/services/api/flickr.people.getPublicPhotos.html */

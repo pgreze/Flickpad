@@ -70,9 +70,17 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     }
 
     @Override
+    public void showLoadingState() {
+        adapter.clear();
+        setPageState(PAGE_LOADING_STATE);
+    }
+
+    @Override
     protected void onNewQuery(String query) {
         // Update presenter
         if (presenter.onNewQuery(query)) {
+            // Reset state
+            setPageState(PAGE_LOADING_STATE);
             // And update args
             getArguments().putString(SEARCH_KEY, query);
         }
@@ -85,8 +93,8 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     }
 
     @Override
-    public void show(int position, Photo photo) {
-        activity.show(photo, getViewHolderFor(position).itemView);
+    public void navigateTo(int position, Photo photo) {
+        activity.show(photo, getListView().findViewHolderForAdapterPosition(position).itemView);
     }
 
     @Override

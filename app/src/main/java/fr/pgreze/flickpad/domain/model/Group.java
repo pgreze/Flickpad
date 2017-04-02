@@ -1,9 +1,11 @@
 package fr.pgreze.flickpad.domain.model;
 
+import android.os.Parcelable;
+
 import com.google.auto.value.AutoValue;
 
 @AutoValue
-public abstract class Group {
+public abstract class Group implements Parcelable {
 
     /** Group id */
     public abstract String id();

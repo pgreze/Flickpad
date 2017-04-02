@@ -21,9 +21,9 @@ import fr.pgreze.flickpad.domain.model.Page;
 import fr.pgreze.flickpad.domain.model.Photo;
 import timber.log.Timber;
 
-class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
+public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> {
 
-    interface PageItemClickListener {
+    public interface PageItemClickListener {
         void onPhotoClick(int position, Photo item);
     }
 
@@ -58,10 +58,8 @@ class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> 
         List<Photo> newPhotos = page.items();
         if (page.currentPage() > currentPage) {
             // Add items
-            int begin = newPhotos.size();
+            int begin = photos.size();
             photos.addAll(newPhotos);
-            // Update current page
-            currentPage = page.currentPage();
             // Notify photos change for this set
             notifyItemRangeChanged(begin, newPhotos.size());
         } else {
@@ -70,6 +68,8 @@ class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> 
             photos.addAll(page.items());
             notifyDataSetChanged();
         }
+        // Update current page
+        currentPage = page.currentPage();
     }
 
     public void clear() {
@@ -82,7 +82,7 @@ class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> 
         return this;
     }
 
-    class PhotoViewHolder extends RecyclerView.ViewHolder {
+    public class PhotoViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.photo_item_title_txt)
         TextView titleText;
@@ -92,7 +92,7 @@ class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> 
         int position;
         Photo photo;
 
-        PhotoViewHolder(View itemView) {
+        public PhotoViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             imgView.setOnClickListener(v -> {

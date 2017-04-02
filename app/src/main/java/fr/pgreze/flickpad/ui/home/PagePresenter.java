@@ -15,10 +15,11 @@ import timber.log.Timber;
 public abstract class PagePresenter<T, View extends PagePresenter.PageView<T>> extends BasePresenter<View> {
 
     public interface PageView<T> {
+        void showLoadingState();
         void load(Page<T> page);
-        void show(int position, Photo photo);
-        void show(int position, Group group);
-        void show(User user);
+        void navigateTo(int position, Photo photo);
+        void navigateTo(int position, Group group);
+        void navigateTo(User user);
         void showEmptyMessage();
         void showNetworkError();
         void showUnknownError();
@@ -34,13 +35,20 @@ public abstract class PagePresenter<T, View extends PagePresenter.PageView<T>> e
     @Override
     public void onStart(View view) {
         super.onStart(view);
-        // When screen is visible, load data
+        // When screen is visible, show spinner
+        view.showLoadingState();
+        // and load data
         Timber.i("Load data for " + this);
         disposables.add(buildDataRequest(false)
                 .subscribe(this::setCurrentPage, this::handleError));
     }
 
     public void onRefresh() {
+        if (view == null) return;
+
+        // Show loading state
+         view.showLoadingState();
+        // And refresh
         Timber.i("Refresh data for " + this);
         disposables.add(buildDataRequest(true)
                 .subscribe(this::setCurrentPage, this::handleError));
