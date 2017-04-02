@@ -44,6 +44,7 @@ android {
             versionNameSuffix "-dev"
             signingConfig signingConfigs.debug
             minifyEnabled false
+            ext.enableCrashlytics = false
         }
         release {
             // TODO: enable minify

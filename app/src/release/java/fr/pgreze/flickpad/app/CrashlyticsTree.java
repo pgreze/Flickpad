@@ -1,4 +1,4 @@
-package fr.pgreze.flickpad.common;
+package fr.pgreze.flickpad.app;
 
 import android.util.Log;
 
