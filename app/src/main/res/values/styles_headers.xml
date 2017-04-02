@@ -42,11 +42,11 @@
         <item name="tabIndicatorHeight">5dp</item>
         <item name="tabBackground">@color/primary</item>
         <item name="tabTextAppearance">@style/Text.NavigationTab</item>
-        <item name="tabSelectedTextColor">@android:color/white</item>
+        <item name="tabSelectedTextColor">@color/primary_text_dark</item>
     </style>
-    <style name="Text.NavigationTab" parent="TextAppearance.AppCompat.Button">
+    <style name="Text.NavigationTab" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/primary_dark</item> <!-- Or secondary -->
+        <item name="android:textColor">@color/secondary_text_dark</item>
         <item name="textAllCaps">true</item>
     </style>
 

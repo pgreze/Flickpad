@@ -71,7 +71,7 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
 
         // Configure onRefresh layout
         swipeRefreshLayout.setOnRefreshListener(this);
-        // TODO: swipeRefreshView.setColorSchemeResources(R.color.primary, R.color.secondary, R.color.third);
+        swipeRefreshLayout.setColorSchemeResources(R.color.primary_dark, R.color.primary, R.color.primary_light);
 
         // Configure recycler view
         listView.setHasFixedSize(hasFixedSize());

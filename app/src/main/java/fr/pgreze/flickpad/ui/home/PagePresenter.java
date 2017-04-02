@@ -46,9 +46,6 @@ public abstract class PagePresenter<T, View extends PagePresenter.PageView<T>> e
     public void onRefresh() {
         if (view == null) return;
 
-        // Show loading state
-         view.showLoadingState();
-        // And refresh
         Timber.i("Refresh data for " + this);
         disposables.add(buildDataRequest(true)
                 .subscribe(this::setCurrentPage, this::handleError));

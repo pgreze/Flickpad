@@ -25,7 +25,7 @@
         android:id="@+id/photo_item_title_txt"
         tools:text="Owner name"
         android:textSize="@dimen/txt_medium"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_text_dark"
         android:ellipsize="end"
         android:maxLines="1"
         android:gravity="center_vertical"

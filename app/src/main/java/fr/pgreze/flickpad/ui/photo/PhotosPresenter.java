@@ -50,10 +50,12 @@ public class PhotosPresenter extends PagePresenter<Photo, PagePresenter.PageView
     }
 
     public boolean onNewQuery(String query) {
-        if (TextUtils.isEmpty(searchText)) return false;
+        if (TextUtils.isEmpty(searchText) || view == null) return false;
 
         // Update field
         searchText = query;
+        // Reinit state
+        view.showLoadingState();
         // And query again data (without cache)
         onRefresh();
         return true;
