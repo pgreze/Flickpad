@@ -29,6 +29,10 @@
                 android:resource="@xml/filepaths" />
         </provider>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="2ce99f839cbe811a681d87f435f0bec853371d31" />
+
     </application>
 
 </manifest>
