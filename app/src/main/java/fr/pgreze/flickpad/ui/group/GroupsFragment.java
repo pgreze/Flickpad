@@ -55,6 +55,12 @@ public class GroupsFragment extends PageFragment<Group, GroupsPresenter> {
     }
 
     @Override
+    public void showLoadingState() {
+        adapter.clear();
+        setPageState(PAGE_LOADING_STATE);
+    }
+
+    @Override
     protected void onNewQuery(String query) {
         getArguments().putString(SEARCH_ARG, query);
         presenter.setArgs(query);

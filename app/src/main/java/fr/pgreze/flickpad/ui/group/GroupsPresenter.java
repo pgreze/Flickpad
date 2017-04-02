@@ -32,8 +32,19 @@ class GroupsPresenter extends PagePresenter<Group, PagePresenter.PageView<Group>
         return flickrInteractor.searchGroups(search);
     }
 
+    public boolean onNewQuery(String query) {
+        // Query again data (without cache)
+        onRefresh();
+        return true;
+    }
+
     void onGroupClick(int position, Group group) {
         Timber.i("Click on group " + position + ": " + group);
         if (view != null) view.show(position, group);
+    }
+
+    @Override
+    public String toString() {
+        return "GroupsPresenter{search=" + search + "}";
     }
 }

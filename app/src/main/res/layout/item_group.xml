@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/group_item_icon"
                 tools:src="@color/primary_dark"
-                android:transitionName="@string/icon_transition_name"
+                android:transitionName="@string/group_icon_transition_name"
                 android:layout_gravity="center_vertical"
                 android:layout_width="32dp"
                 android:layout_height="32dp" />
@@ -35,7 +35,7 @@
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:transitionName="@string/name_transition_name"
+                android:transitionName="@string/group_name_transition_name"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"

@@ -27,6 +27,6 @@
 
     <!-- Implementation -->
     <string name="photo_transition_name">photo</string>
-    <string name="icon_transition_name">icon</string>
-    <string name="name_transition_name">name</string>
+    <string name="group_icon_transition_name">icon</string>
+    <string name="group_name_transition_name">name</string>
 </resources>
