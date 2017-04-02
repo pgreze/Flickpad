@@ -18,7 +18,7 @@ public abstract class BaseFragment<Presenter extends BasePresenter> extends Frag
 
     @Nullable
     protected abstract Presenter onCreate(@NonNull ActivityComponent component,
-                                          @Nullable Bundle args,
+                                          Bundle args,
                                           @Nullable Bundle savedInstanceState);
 
     @Override

@@ -44,13 +44,12 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     @Nullable
     @Override
     protected PhotosPresenter onCreate(@NonNull ActivityComponent component,
-                                       @Nullable Bundle args,
+                                       Bundle args,
                                        @Nullable Bundle savedInstanceState) {
         // Inject fragment
         component.inject(this);
 
         // Get args
-        assert args != null;
         presenter.setArgs(args.getString(TAG_KEY, null), args.getString(SEARCH_KEY, null));
 
         // Return presenter

@@ -49,4 +49,5 @@
         <item name="android:textColor">@color/primary_dark</item> <!-- Or secondary -->
         <item name="textAllCaps">true</item>
     </style>
+
 </resources>

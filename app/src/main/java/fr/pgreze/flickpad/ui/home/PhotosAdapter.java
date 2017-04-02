@@ -95,7 +95,7 @@ class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoViewHolder> 
         PhotoViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> {
+            imgView.setOnClickListener(v -> {
                 if (listener != null) listener.onPhotoClick(position, photo);
             });
         }

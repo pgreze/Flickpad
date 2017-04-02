@@ -5,4 +5,6 @@
     <dimen name="txt_small">12sp</dimen>
     <dimen name="txt_medium">18sp</dimen>
     <dimen name="txt_large">24sp</dimen>
+
+    <dimen name="icon_size">48dp</dimen>
 </resources>
