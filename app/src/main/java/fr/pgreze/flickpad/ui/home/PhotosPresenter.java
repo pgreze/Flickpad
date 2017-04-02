@@ -40,7 +40,7 @@ public class PhotosPresenter extends PagePresenter<Photo, PagePresenter.PageView
 
     public void onPhotoClick(int position, Photo photo) {
         Timber.i("Click on photo " + position + ": " + photo + " for " + this);
-        if (view != null) view.show(photo);
+        if (view != null) view.show(position, photo);
     }
 
     @Override

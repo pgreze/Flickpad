@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:transitionName="@string/photo_transition_name"
     android:minWidth="120dp"
     android:minHeight="120dp"
     tools:layout_width="180dp"

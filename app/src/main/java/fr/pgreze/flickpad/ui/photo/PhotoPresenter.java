@@ -29,39 +29,13 @@ class PhotoPresenter extends BasePresenter<PhotoPresenter.PhotoView> {
     @Override
     public void onStart(PhotoView photoView) {
         super.onStart(photoView);
-        // Display medium url from cache
-        Timber.i("Display medium url");
+        Timber.i("Display photo");
         assert view != null;
-        view.showImage(photo.mediumUrl());
+        view.showImage(photo.largeUrl());
     }
 
     void onImageClick(boolean fullscreen) {
         if (view != null) view.toggleFullscreen(!fullscreen);
-    }
-
-    void onShowImageSucceed(String url) {
-        if (view == null) return;
-
-        if (isLargeUrl(url)) {
-            Timber.i("Succeed to display large url");
-        } else {
-            // Medium url from cache loaded, now request network for large url
-            Timber.i("Now load large url");
-            view.showImage(photo.largeUrl());
-        }
-    }
-
-    void onShowImageFailed(String url) {
-        if (view == null) return;
-
-        if (isLargeUrl(url)) {
-            Timber.w("Failed to display large url...");
-            // TODO: spinner and wait network
-        } else {
-            Timber.i("Failed to display cached img, rage quit");
-            // TODO: error msg
-            view.goBack();
-        }
     }
 
     void onBackClick() {

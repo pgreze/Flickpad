@@ -1,8 +1,5 @@
 package fr.pgreze.flickpad.ui.photo;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import javax.inject.Inject;
 
@@ -103,30 +99,14 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public void showImage(String url) {
-        picasso.load(url).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                imgView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
-                presenter.onShowImageSucceed(url);
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                presenter.onShowImageFailed(url);
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                // Nothing to do
-            }
-        });
+        picasso.load(url).into(imgView);
     }
 
     @Override
     public void toggleFullscreen(boolean fullscreen) {
         this.fullscreen = fullscreen;
 
-        // Show/Hide system bars
+        // Show/Hide system bars TODO: fix me
         /* See http://stackoverflow.com/a/8054262/5489877
         Window window = activity.getWindow();
         WindowManager.LayoutParams attrs = window.getAttributes();

@@ -22,4 +22,7 @@
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
     <string name="unknown_error">Something bad happened, please retry.</string>
+
+    <!-- Implementation -->
+    <string name="photo_transition_name">photo</string>
 </resources>
