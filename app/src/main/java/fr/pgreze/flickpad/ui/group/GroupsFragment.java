@@ -73,7 +73,7 @@ public class GroupsFragment extends PageFragment<Group, GroupsPresenter> {
     }
 
     @Override
-    public void show(int position, Group group) {
+    public void navigateTo(int position, Group group) {
         activity.show(group, getListView().findViewHolderForAdapterPosition(position).itemView);
     }
 

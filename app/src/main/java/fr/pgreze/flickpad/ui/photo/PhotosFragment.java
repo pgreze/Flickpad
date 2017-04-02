@@ -93,7 +93,7 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     }
 
     @Override
-    public void show(int position, Photo photo) {
+    public void navigateTo(int position, Photo photo) {
         activity.show(photo, getListView().findViewHolderForAdapterPosition(position).itemView);
     }
 

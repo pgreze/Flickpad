@@ -37,7 +37,7 @@ public class GroupPresenter extends PagePresenter<Photo, GroupPresenter.GroupVie
 
     public void onPhotoClick(int position, Photo photo) {
         Timber.i("Click on photo " + position + ": " + photo + " for " + this);
-        if (view != null) view.show(position, photo);
+        if (view != null) view.navigateTo(position, photo);
     }
 
     @Override

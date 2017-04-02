@@ -40,7 +40,7 @@ class GroupsPresenter extends PagePresenter<Group, PagePresenter.PageView<Group>
 
     void onGroupClick(int position, Group group) {
         Timber.i("Click on group " + position + ": " + group);
-        if (view != null) view.show(position, group);
+        if (view != null) view.navigateTo(position, group);
     }
 
     @Override
