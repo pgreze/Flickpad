@@ -1,16 +1,23 @@
 package fr.pgreze.flickpad.ui.photo;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -21,6 +28,7 @@ import fr.pgreze.flickpad.domain.model.Photo;
 import fr.pgreze.flickpad.ui.core.BaseFragment;
 import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
+import timber.log.Timber;
 
 public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoPresenter.PhotoView {
     public static final String TAG = "fragment.photo";
@@ -91,7 +99,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                // TODO
+                presenter.onShareClick();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -128,6 +136,34 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                 .translationY(-factor * downToolbar.getMeasuredHeight())
                 .withLayer()
                 .start();
+    }
+
+    @Override
+    public void share(File file) {
+        Uri contentUri = FileProvider.getUriForFile(
+                getActivity(), getString(R.string.files_authorities), file);
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, R.string.share_placeholder_text);
+        intent.setType("image/jpeg");
+        intent.putExtra(Intent.EXTRA_STREAM, contentUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        try {
+            startActivity(Intent.createChooser(intent, getString(R.string.share_picker_title)));
+        } catch (Exception e) {
+            Timber.e(e, "Failed to share " + file);
+            showShareError();
+        }
+    }
+
+    @Override
+    public void showShareError() {
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            Toast.makeText(activity, R.string.share_error, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
