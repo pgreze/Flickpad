@@ -111,7 +111,6 @@ class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewHolder> 
             Timber.d("Display " + group);
             picasso.load(group.thumbnail())
                     .transform(new CircleTransform())
-                    .placeholder(R.color.divider)
                     .error(R.color.accent)
                     .fit()
                     .centerCrop()
