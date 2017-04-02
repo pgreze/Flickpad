@@ -3,6 +3,7 @@
     <string name="app_name">Flickpad</string>
     <string name="action_search_title">Search</string>
     <string name="search_hint">Search</string>
+    <string name="action_share_title">Share</string>
 
     <!-- Home search -->
     <string name="home_title">@string/app_name</string>
@@ -21,4 +22,7 @@
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
     <string name="unknown_error">Something bad happened, please retry.</string>
+
+    <!-- Implementation -->
+    <string name="photo_transition_name">photo</string>
 </resources>

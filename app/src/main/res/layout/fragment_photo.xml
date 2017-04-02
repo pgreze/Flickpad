@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/black"
+    tools:background="@android:color/darker_gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/photo_img"
+        android:transitionName="@string/photo_transition_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Top toolbar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/photo_toolbar_top"
+        android:background="@drawable/bg_shadow_up_to_down"
+        style="@style/Toolbar"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Bottom bar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/photo_toolbar_down"
+        android:background="@drawable/bg_shadow_down_to_up"
+        style="@style/Toolbar"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- TODO: add img + text to display photo owner -->
+
+    </android.support.v7.widget.Toolbar>
+
+</FrameLayout>

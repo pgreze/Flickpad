@@ -16,8 +16,8 @@ public abstract class PagePresenter<T, View extends PagePresenter.PageView<T>> e
 
     public interface PageView<T> {
         void load(Page<T> page);
-        void show(Photo photo);
-        void show(Group group);
+        void show(int position, Photo photo);
+        void show(int position, Group group);
         void show(User user);
         void showEmptyMessage();
         void showNetworkError();

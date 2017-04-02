@@ -1,6 +1,5 @@
 package fr.pgreze.flickpad.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,16 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -30,9 +26,9 @@ import fr.pgreze.flickpad.common.TextUtils;
 import fr.pgreze.flickpad.ui.core.BaseFragment;
 import fr.pgreze.flickpad.ui.core.BasePresenter;
 import fr.pgreze.flickpad.ui.core.MainActivity;
+import fr.pgreze.flickpad.ui.core.ViewHelper;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import io.reactivex.subjects.PublishSubject;
-import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment {
     public static final String TAG = "fragment.home";
@@ -63,15 +59,13 @@ public class HomeFragment extends BaseFragment {
     @Nullable
     @Override
     protected BasePresenter onCreate(@NonNull ActivityComponent component,
-                                     @Nullable Bundle args,
+                                     Bundle args,
                                      @Nullable Bundle savedInstanceState) {
         // Inject
         component.inject(this);
 
         // Parse args
-        if (args != null) {
-            search = args.getString(SEARCH_KEY, null);
-        }
+        search = args.getString(SEARCH_KEY, null);
 
         // No presenter
         return null;
@@ -93,13 +87,10 @@ public class HomeFragment extends BaseFragment {
         if (TextUtils.isEmpty(search)) {
             toolbar.setTitle(R.string.home_title);
         } else {
+            toolbar.setTitle(search);
             // Add navigation icon
-            // See http://stackoverflow.com/a/26656285/5489877
-            ActionBar actionBar = activity.getSupportActionBar();
-            assert actionBar != null;
-            actionBar.setTitle(search);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24);
+            toolbar.setNavigationOnClickListener(v -> activity.onBackPressed());
         }
         setHasOptionsMenu(true);
 
@@ -136,16 +127,6 @@ public class HomeFragment extends BaseFragment {
         searchAutoComplete.setHint(R.string.search_hint);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                activity.onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private boolean submitSearch(String query) {
         if (TextUtils.isEmpty(query) || query.equals(search)) {
             // Empty or already in this search
@@ -167,16 +148,7 @@ public class HomeFragment extends BaseFragment {
         }
 
         // Close keyboard
-        View view = activity.getCurrentFocus();
-        if (view != null) {
-            try {
-                InputMethodManager imm = (InputMethodManager)
-                        activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            } catch (Exception e) {
-                Timber.e(e, "Failed to close keyboard after search");
-            }
-        }
+        ViewHelper.closeKeyboard(activity);
 
         return true;
     }

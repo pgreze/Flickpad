@@ -141,13 +141,13 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
     }
 
     @Override
-    public void show(Photo photo) {
-        activity.show(photo);
+    public void show(int position, Photo photo) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void show(Group group) {
-        activity.show(group);
+    public void show(int position, Group group) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
