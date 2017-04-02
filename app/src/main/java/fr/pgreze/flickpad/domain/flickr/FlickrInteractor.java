@@ -33,8 +33,8 @@ public class FlickrInteractor {
      */
     public static final String PHOTO_FORMAT =
             "https://farm{farm}.staticflickr.com/{server}/{id}_{secret}_{size}.jpg";
-    public static final String DEFAULT_MEDIUM_SIZE = "z";
-    public static final String DEFAULT_LARGE_SIZE = "h";
+    public static final String DEFAULT_MEDIUM_SIZE = "m";
+    public static final String DEFAULT_LARGE_SIZE = "z";
 
     private final FlickrService service;
 
