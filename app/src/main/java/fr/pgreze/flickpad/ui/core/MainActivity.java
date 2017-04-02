@@ -12,10 +12,14 @@ import butterknife.BindView;
 import fr.pgreze.flickpad.R;
 import fr.pgreze.flickpad.app.FlickPadApp;
 import fr.pgreze.flickpad.common.di.HasComponent;
+import fr.pgreze.flickpad.domain.model.Group;
+import fr.pgreze.flickpad.domain.model.Photo;
+import fr.pgreze.flickpad.domain.model.User;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import fr.pgreze.flickpad.ui.core.di.ActivityModule;
 import fr.pgreze.flickpad.ui.core.di.DaggerActivityComponent;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements HasComponent<ActivityComponent> {
 
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
         if (savedInstanceState == null) {
             // Display fragment
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_container, new HomeFragment(), HomeFragment.TAG)
+                    .add(R.id.main_container, HomeFragment.newInstance(null), HomeFragment.TAG)
                     .commit();
         }
     }
@@ -50,5 +54,26 @@ public class MainActivity extends AppCompatActivity implements HasComponent<Acti
                     .build();
         }
         return component;
+    }
+
+    public void search(String query) {
+        // TODO: animation
+        Timber.i("Display search screen for " + query);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, HomeFragment.newInstance(query), HomeFragment.TAG)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void show(Photo photo) {
+        // TODO
+    }
+
+    public void show(Group group) {
+        // TODO
+    }
+
+    public void show(User user) {
+        // TODO
     }
 }

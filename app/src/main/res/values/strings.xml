@@ -1,6 +1,22 @@
 <resources>
     <!-- Base -->
     <string name="app_name">Flickpad</string>
+    <string name="action_search_title">Search</string>
+    <string name="search_hint">Search</string>
+
+    <!-- Home search -->
+    <string name="home_title">@string/app_name</string>
+    <string name="home_first_tab_title">Cat</string>
+    <string name="home_second_tab_title">Printemps</string>
+    <string name="home_third_tab_title">Bridge</string>
+    <string name="search_first_tab_title">Photos</string>
+    <string name="search_second_tab_title">Groups</string>
+    <!-- Photos / Groups -->
+    <string name="list_empty">Nothing found :(</string>
+    <string name="list_unknown_error">Something bad happened.\n\n
+    Drag from top to retry.</string>
+    <string name="photos_network_error">Can\'t load photos.\n\n
+    Drag from top to retry.</string>
 
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>

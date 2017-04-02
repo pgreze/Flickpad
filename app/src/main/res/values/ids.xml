@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <item name="toolbar" type="id" />
+    <item name="progress" type="id" />
+    <item name="list_refresh" type="id" />
+    <item name="list" type="id" />
+    <item name="error" type="id" />
+</resources>
