@@ -5,7 +5,7 @@ import fr.pgreze.flickpad.app.AppComponent;
 import fr.pgreze.flickpad.common.di.UILifecycleScope;
 import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
-import fr.pgreze.flickpad.ui.home.PhotosFragment;
+import fr.pgreze.flickpad.ui.photo.PhotosFragment;
 import fr.pgreze.flickpad.ui.photo.PhotoFragment;
 
 @UILifecycleScope

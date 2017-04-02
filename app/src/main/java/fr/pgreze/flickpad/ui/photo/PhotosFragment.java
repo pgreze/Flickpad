@@ -1,4 +1,4 @@
-package fr.pgreze.flickpad.ui.home;
+package fr.pgreze.flickpad.ui.photo;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import fr.pgreze.flickpad.R;
 import fr.pgreze.flickpad.domain.model.Page;
 import fr.pgreze.flickpad.domain.model.Photo;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
+import fr.pgreze.flickpad.ui.home.PageFragment;
 
 public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
 
@@ -85,7 +86,7 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
 
     @Override
     public void show(int position, Photo photo) {
-        activity.show(photo, listView.findViewHolderForAdapterPosition(position).itemView);
+        activity.show(photo, getViewHolderFor(position).itemView);
     }
 
     @Override

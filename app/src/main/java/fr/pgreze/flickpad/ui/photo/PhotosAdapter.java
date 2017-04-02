@@ -1,4 +1,4 @@
-package fr.pgreze.flickpad.ui.home;
+package fr.pgreze.flickpad.ui.photo;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

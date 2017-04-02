@@ -28,6 +28,7 @@ import fr.pgreze.flickpad.ui.core.BasePresenter;
 import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.core.ViewHelper;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
+import fr.pgreze.flickpad.ui.photo.PhotosFragment;
 import io.reactivex.subjects.PublishSubject;
 
 public class HomeFragment extends BaseFragment {

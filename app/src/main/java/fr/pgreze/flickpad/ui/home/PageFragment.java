@@ -52,9 +52,9 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
     @BindView(R.id.error)
     TextView errorTxt;
 
-    @Inject MainActivity activity;
-    @Inject Picasso picasso;
-    @Inject @Named("search") PublishSubject<String> searchSubject;
+    @Inject protected MainActivity activity;
+    @Inject protected Picasso picasso;
+    @Inject @Named("search") protected PublishSubject<String> searchSubject;
 
     private Disposable disposable;
 
@@ -107,7 +107,7 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
         return true;
     }
 
-    public void setErrorTxt(CharSequence text) {
+    protected void setErrorTxt(CharSequence text) {
         setPageState(PAGE_ERROR_STATE);
         errorTxt.setText(text);
         // Just in case, set onRefresh = false
@@ -121,13 +121,17 @@ public abstract class PageFragment<T, Presenter extends BasePresenter>
                 : PAGE_LOADING_STATE;
     }
 
-    public void setPageState(@PageState int pageState) {
+    protected void setPageState(@PageState int pageState) {
         // Progress or swipe container
         progressBar.setVisibility(pageState == PAGE_LOADING_STATE ? View.VISIBLE : View.GONE);
         swipeRefreshLayout.setVisibility(pageState != PAGE_LOADING_STATE ? View.VISIBLE : View.GONE);
         // If not progress, set visibility for list or message
         listView.setVisibility(pageState == PAGE_DISPLAY_STATE ? View.VISIBLE : View.GONE);
         errorTxt.setVisibility(pageState == PAGE_ERROR_STATE ? View.VISIBLE : View.GONE);
+    }
+
+    protected RecyclerView.ViewHolder getViewHolderFor(int position) {
+        return listView.findViewHolderForAdapterPosition(position);
     }
 
     // Implementation

@@ -1,4 +1,4 @@
-package fr.pgreze.flickpad.ui.home;
+package fr.pgreze.flickpad.ui.photo;
 
 import android.support.annotation.Nullable;
 
@@ -8,6 +8,7 @@ import fr.pgreze.flickpad.common.TextUtils;
 import fr.pgreze.flickpad.domain.flickr.FlickrInteractor;
 import fr.pgreze.flickpad.domain.model.Page;
 import fr.pgreze.flickpad.domain.model.Photo;
+import fr.pgreze.flickpad.ui.home.PagePresenter;
 import io.reactivex.Observable;
 import timber.log.Timber;
 
