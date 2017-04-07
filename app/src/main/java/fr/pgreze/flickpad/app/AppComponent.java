@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import fr.pgreze.flickpad.domain.flickr.FlickrInteractor;
+import fr.pgreze.flickpad.domain.flickr.FlickrLoginInteractor;
 import fr.pgreze.flickpad.domain.flickr.FlickrModule;
 import okhttp3.OkHttpClient;
 
@@ -26,5 +27,6 @@ public interface AppComponent {
     Picasso picasso();
     OkHttpClient client();
     // Domain
+    FlickrLoginInteractor flickrLoginInteractor();
     FlickrInteractor flickrInteractor();
 }

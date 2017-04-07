@@ -30,6 +30,7 @@ import fr.pgreze.flickpad.ui.core.ViewHelper;
 import fr.pgreze.flickpad.ui.core.di.ActivityComponent;
 import fr.pgreze.flickpad.ui.group.GroupsFragment;
 import fr.pgreze.flickpad.ui.photo.PhotosFragment;
+import fr.pgreze.flickpad.ui.photo.PhotosRequest;
 import io.reactivex.subjects.PublishSubject;
 
 public class HomeFragment extends BaseFragment {
@@ -165,10 +166,10 @@ public class HomeFragment extends BaseFragment {
         public Fragment getItem(int position) {
             if (TextUtils.isEmpty(search)) {
                 // Home screen
-                return PhotosFragment.newTagInstance(HOME_TAGS[position]);
+                return PhotosFragment.newTagInstance(PhotosRequest.requestTag(HOME_TAGS[position]));
             } else if (position == 0) {
                 // Photo search screen
-                return PhotosFragment.newSearchInstance(search);
+                return PhotosFragment.newTagInstance(PhotosRequest.requestSearch(search));
             } else {
                 // Group search screen
                 return GroupsFragment.newInstance(search);
