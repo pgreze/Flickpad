@@ -26,6 +26,10 @@
     <string name="share_picker_title">Share with</string>
     <string name="share_placeholder_text">Enjoy what I found with Flickpad :)</string>
 
+    <!-- Login -->
+    <string name="login_welcome">Please connect with your Flickr account to see your photos.</string>
+    <string name="login_btn">Login</string>
+
     <!-- Errors -->
     <string name="network_error">Please check your network and retry.</string>
     <string name="unknown_error">Something bad happened, please retry.</string>

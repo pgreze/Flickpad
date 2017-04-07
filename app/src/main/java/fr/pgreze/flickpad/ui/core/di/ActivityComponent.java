@@ -7,6 +7,7 @@ import fr.pgreze.flickpad.ui.core.MainActivity;
 import fr.pgreze.flickpad.ui.group.GroupFragment;
 import fr.pgreze.flickpad.ui.group.GroupsFragment;
 import fr.pgreze.flickpad.ui.home.HomeFragment;
+import fr.pgreze.flickpad.ui.login.LoginFragment;
 import fr.pgreze.flickpad.ui.photo.PhotosFragment;
 import fr.pgreze.flickpad.ui.photo.PhotoFragment;
 
@@ -21,4 +22,5 @@ public interface ActivityComponent {
     void inject(PhotoFragment fragment);
     void inject(GroupsFragment fragment);
     void inject(GroupFragment fragment);
+    void inject(LoginFragment fragment);
 }
