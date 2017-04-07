@@ -5,6 +5,8 @@ import android.support.v4.util.Pair;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import fr.pgreze.flickpad.common.TextUtils;
+import fr.pgreze.flickpad.ui.core.AppPrefs;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import oauth.signpost.OAuthConsumer;
@@ -18,11 +20,33 @@ public class FlickrLoginInteractor {
 
     private final OAuthProvider oAuthProvider;
     private final OAuthConsumer consumer;
+    private final AppPrefs appPrefs;
 
     @Inject
-    public FlickrLoginInteractor(OkHttpOAuthProvider oAuthProvider, OkHttpOAuthConsumer consumer) {
+    public FlickrLoginInteractor(OkHttpOAuthProvider oAuthProvider, OkHttpOAuthConsumer consumer,
+                                 AppPrefs appPrefs) {
         this.oAuthProvider = oAuthProvider;
         this.consumer = consumer;
+        this.appPrefs = appPrefs;
+    }
+
+    /**
+     * Check if we're connected, or could recover previous state
+     * @return if we're connected
+     */
+    public boolean connect() {
+        if (TextUtils.isEmpty(consumer.getToken())) {
+            // Try to recover
+            Pair<String, String> accessToken = appPrefs.getAccessToken();
+            if (accessToken != null) {
+                Timber.i("Succeed to recover login state");
+                consumer.setTokenWithSecret(accessToken.first, accessToken.second);
+                return true;
+            }
+        } else {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -42,7 +66,12 @@ public class FlickrLoginInteractor {
             // Request an access token
             oAuthProvider.retrieveAccessToken(consumer, verifier);
             // At this point, consumer as an access token
-            return Pair.create(consumer.getToken(), consumer.getTokenSecret());
+            String token = consumer.getToken();
+            String tokenSecret = consumer.getTokenSecret();
+            // Store these credentials
+            appPrefs.setAccessToken(token, tokenSecret);
+            // And return them
+            return Pair.create(token, tokenSecret);
         }).subscribeOn(Schedulers.io())
                 .doOnError(e -> Timber.e(e, "Error while fetching access token: " + e));
     }
