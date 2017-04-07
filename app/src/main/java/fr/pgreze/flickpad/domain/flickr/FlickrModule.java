@@ -64,11 +64,12 @@ public class FlickrModule {
     }
 
     @Provides FlickrService flickrService(Cache cache, OkHttpClient httpClient, Gson gson,
-                                          OkHttpOAuthConsumer consumer) {
+                                          OkHttpOAuthConsumer consumer,
+                                          FlickrLoginInteractor loginInteractor) {
         // Create client with cache and login support
         OkHttpClient flickrHttpClient = httpClient.newBuilder()
                 .cache(cache)
-                //TODO: .addInterceptor(new SigningInterceptor(consumer))
+                .addInterceptor(new FlickrSigningInterceptor(consumer, loginInteractor))
                 .build();
         // Create retrofit
         Retrofit retrofit = new Retrofit.Builder()
