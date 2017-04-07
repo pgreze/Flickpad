@@ -8,7 +8,9 @@ import javax.inject.Singleton;
 import fr.pgreze.flickpad.common.TextUtils;
 import fr.pgreze.flickpad.ui.core.AppPrefs;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
@@ -21,6 +23,7 @@ public class FlickrLoginInteractor {
     private final OAuthProvider oAuthProvider;
     private final OAuthConsumer consumer;
     private final AppPrefs appPrefs;
+    private final PublishSubject<Boolean> loginSubject = PublishSubject.create();
 
     @Inject
     public FlickrLoginInteractor(OkHttpOAuthProvider oAuthProvider, OkHttpOAuthConsumer consumer,
@@ -41,12 +44,17 @@ public class FlickrLoginInteractor {
             if (accessToken != null) {
                 Timber.i("Succeed to recover login state");
                 consumer.setTokenWithSecret(accessToken.first, accessToken.second);
+                loginSubject.onNext(true);
                 return true;
             }
         } else {
             return true;
         }
         return false;
+    }
+
+    public Observable<Boolean> getLoginObservable() {
+        return loginSubject;
     }
 
     /**
@@ -68,11 +76,13 @@ public class FlickrLoginInteractor {
             // At this point, consumer as an access token
             String token = consumer.getToken();
             String tokenSecret = consumer.getTokenSecret();
-            // Store these credentials
+            // Update state
             appPrefs.setAccessToken(token, tokenSecret);
             // And return them
             return Pair.create(token, tokenSecret);
         }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(p -> loginSubject.onNext(true))
                 .doOnError(e -> Timber.e(e, "Error while fetching access token: " + e));
     }
 }

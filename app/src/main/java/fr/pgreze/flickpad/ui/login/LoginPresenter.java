@@ -87,7 +87,6 @@ public class LoginPresenter extends BasePresenter<LoginPresenter.LoginView> {
         String oauthVerifier = url.getQueryParameter("oauth_verifier");
         if (!TextUtils.isEmpty(oauthVerifier)) {
             disposables.add(loginInteractor.accessToken(oauthVerifier)
-                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(p -> {
                         // Login completed o//
                         if (view != null) {

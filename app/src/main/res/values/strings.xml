@@ -7,11 +7,16 @@
 
     <!-- Home search -->
     <string name="home_title">@string/app_name</string>
-    <string name="home_first_tab_title">Cat</string>
-    <string name="home_second_tab_title">Printemps</string>
-    <string name="home_third_tab_title">Bridge</string>
-    <string name="search_first_tab_title">Photos</string>
-    <string name="search_second_tab_title">Groups</string>
+    <string-array name="home_titles">
+        <item>Cat</item>
+        <item>Printemps</item>
+        <item>Bridge</item>
+        <item>My photos</item>
+    </string-array>
+    <string-array name="search_titles">
+        <item>Photos</item>
+        <item>Groups</item>
+    </string-array>
     <!-- Photos / Groups -->
     <string name="list_empty">Nothing found :(</string>
     <string name="list_unknown_error">Something bad happened.\n\n

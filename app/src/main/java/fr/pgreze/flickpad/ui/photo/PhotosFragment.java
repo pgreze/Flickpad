@@ -21,13 +21,17 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
     public static final int PHOTOS_SPAN_COUNT = 2;
     private PhotosAdapter adapter;
 
-    public static PhotosFragment newTagInstance(PhotosRequest request) {
+    public static PhotosFragment newInstance(PhotosRequest request) {
         Bundle args = new Bundle();
         args.putParcelable(REQUEST_KEY, request);
 
         PhotosFragment fragment = new PhotosFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public PhotosRequest getRequest() {
+        return getArguments().getParcelable(REQUEST_KEY);
     }
 
     @Inject PhotosPresenter presenter;
