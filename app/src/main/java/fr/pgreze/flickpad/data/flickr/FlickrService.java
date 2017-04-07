@@ -1,6 +1,5 @@
 package fr.pgreze.flickpad.data.flickr;
 
-import fr.pgreze.flickpad.BuildConfig;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullGroup;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullPhoto;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullUser;
@@ -20,8 +19,7 @@ public interface FlickrService {
     String BASE_URL = "https://www.flickr.com/services/rest/";
 
     /** Before any path */
-    String BASE_PATH = "?format=json&nojsoncallback=1&api_key="
-            + BuildConfig.FLICKR_CONSUMER_KEY + "&method=";
+    String BASE_PATH = "?format=json&nojsoncallback=1&method=";
 
     // Entity -> photos
 
@@ -30,8 +28,8 @@ public interface FlickrService {
     Observable<FlickrResponse<FlickrPhotos>> groupPhotos(
             @Query("group_id") String groupId);
 
-    /** See https://www.flickr.com/services/api/flickr.people.getPublicPhotos.html */
-    @GET(BASE_PATH + "flickr.people.getPublicPhotos")
+    /** See https://www.flickr.com/services/api/flickr.people.getPhotos.html */
+    @GET(BASE_PATH + "flickr.people.getPhotos")
     Observable<FlickrResponse<FlickrPhotos>> userPhotos(
             @Query("user_id") String userId);
 

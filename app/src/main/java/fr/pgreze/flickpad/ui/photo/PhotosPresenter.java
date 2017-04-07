@@ -1,10 +1,7 @@
 package fr.pgreze.flickpad.ui.photo;
 
-import android.support.annotation.Nullable;
-
 import javax.inject.Inject;
 
-import fr.pgreze.flickpad.common.TextUtils;
 import fr.pgreze.flickpad.domain.flickr.FlickrInteractor;
 import fr.pgreze.flickpad.domain.model.Page;
 import fr.pgreze.flickpad.domain.model.Photo;
@@ -16,27 +13,34 @@ public class PhotosPresenter extends PagePresenter<Photo, PagePresenter.PageView
 
     private final FlickrInteractor flickrInteractor;
 
-    private String tag;
-    @Nullable
-    private String searchText;
+    private PhotosRequest request;
 
     @Inject
     public PhotosPresenter(FlickrInteractor flickrInteractor) {
         this.flickrInteractor = flickrInteractor;
     }
 
-    public void setArgs(String tag, @Nullable String searchText) {
-        this.tag = tag;
-        this.searchText = searchText;
+    public void setArgs(PhotosRequest request) {
+        this.request = request;
+    }
+
+    public PhotosRequest getRequest() {
+        return request;
     }
 
     @Override
     protected Observable<Page<Photo>> buildDataRequest(boolean refresh) {
-        // Display search if present
-        if (TextUtils.isEmpty(searchText)) {
-            return flickrInteractor.tagPhotos(tag);
+        switch (request.type()) {
+            case PhotosRequest.REQUEST_TAG:
+                return flickrInteractor.tagPhotos(request.extra());
+            case PhotosRequest.REQUEST_SEARCH:
+                return flickrInteractor.searchPhotos(request.extra());
+            case PhotosRequest.REQUEST_GROUP:
+                return flickrInteractor.groupPhotos(request.extra());
+            case PhotosRequest.REQUEST_USER:
+                return flickrInteractor.userPhotos(request.extra());
         }
-        return flickrInteractor.searchPhotos(searchText);
+        throw new UnsupportedOperationException("Unsupported " + request);
     }
 
     public void onPhotoClick(int position, Photo photo) {
@@ -46,14 +50,15 @@ public class PhotosPresenter extends PagePresenter<Photo, PagePresenter.PageView
 
     @Override
     public String toString() {
-        return "PhotosPresenter{" + (TextUtils.isEmpty(searchText) ? tag : searchText) + "}";
+        return "PhotosPresenter{request=" + request + "}";
     }
 
     public boolean onNewQuery(String query) {
-        if (TextUtils.isEmpty(searchText) || view == null) return false;
+        // Only non stopped search screen can handles this request
+        if (view == null || request.type() != PhotosRequest.REQUEST_SEARCH) return false;
 
         // Update field
-        searchText = query;
+        request = PhotosRequest.requestSearch(query);
         // Reinit state
         view.showLoadingState();
         // And query again data (without cache)

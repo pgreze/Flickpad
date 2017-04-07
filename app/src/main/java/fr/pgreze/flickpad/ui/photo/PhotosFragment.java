@@ -16,28 +16,22 @@ import fr.pgreze.flickpad.ui.home.PageFragment;
 
 public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
 
-    private static final String TAG_KEY = "photos.tag";
-    private static final String SEARCH_KEY = "photos.search";
+    private static final String REQUEST_KEY = "photos.request";
 
     public static final int PHOTOS_SPAN_COUNT = 2;
     private PhotosAdapter adapter;
 
-    public static PhotosFragment newTagInstance(@NonNull String tag) {
+    public static PhotosFragment newInstance(PhotosRequest request) {
         Bundle args = new Bundle();
-        args.putString(TAG_KEY, tag);
+        args.putParcelable(REQUEST_KEY, request);
 
         PhotosFragment fragment = new PhotosFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static PhotosFragment newSearchInstance(@NonNull String search) {
-        Bundle args = new Bundle();
-        args.putString(SEARCH_KEY, search);
-
-        PhotosFragment fragment = new PhotosFragment();
-        fragment.setArguments(args);
-        return fragment;
+    public PhotosRequest getRequest() {
+        return getArguments().getParcelable(REQUEST_KEY);
     }
 
     @Inject PhotosPresenter presenter;
@@ -51,7 +45,7 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
         component.inject(this);
 
         // Get args
-        presenter.setArgs(args.getString(TAG_KEY, null), args.getString(SEARCH_KEY, null));
+        presenter.setArgs(args.getParcelable(REQUEST_KEY));
 
         // Return presenter
         return presenter;
@@ -82,7 +76,7 @@ public class PhotosFragment extends PageFragment<Photo, PhotosPresenter> {
             // Reset state
             setPageState(PAGE_LOADING_STATE);
             // And update args
-            getArguments().putString(SEARCH_KEY, query);
+            getArguments().putParcelable(REQUEST_KEY, presenter.getRequest());
         }
     }
 

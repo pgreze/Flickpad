@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import fr.pgreze.flickpad.common.TextUtils;
 import fr.pgreze.flickpad.data.flickr.FlickrService;
 import fr.pgreze.flickpad.data.flickr.model.FlickrFullUser;
 import fr.pgreze.flickpad.data.flickr.model.FlickrGroups;
@@ -52,6 +53,7 @@ public class FlickrInteractor {
     }
 
     public Observable<Page<Photo>> userPhotos(String userId) {
+        if (TextUtils.isEmpty(userId)) userId = "me";
         return service.userPhotos(userId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(this::responseHandler)
