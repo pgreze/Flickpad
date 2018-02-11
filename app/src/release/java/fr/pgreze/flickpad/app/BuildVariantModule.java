@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient;
 public class BuildVariantModule {
 
     @Provides OkHttpClient provideOkHttpClient() {
-        return new OkHttpClient.Builder()
-                .build();
+        return new OkHttpClient();
     }
 }
