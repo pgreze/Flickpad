@@ -4,6 +4,8 @@
 
 A simple photo viewer application.
 
+![Demo](https://user-images.githubusercontent.com/14812354/54864917-45f0e780-4da1-11e9-8799-7078734687da.gif)
+
 Please see [Release 1.0](https://github.com/pgreze/Flickpad/releases/tag/1.0) description for a full description, screenshots and download link of this project.
 
 ## Technical description
